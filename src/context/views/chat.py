@@ -4,10 +4,8 @@ from context.models.conversation import conversation
 from context.models.message import message
 from utils.chatbot import Chatbot
 
-def render_chat(chatbot : Chatbot):
+def render_chat(chatbot : Chatbot, db : db_manager):
     st.title("Chat Interface")
-    db = db_manager()
-    db.init_db()
     session = db.get_session()
 
     conversation_id = st.session_state.get("conversation_id", None)

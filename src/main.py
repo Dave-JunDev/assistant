@@ -1,8 +1,13 @@
+import streamlit as st
+
 from context.views.sidebar import render_sidebar
 from context.views.chat import render_chat
-import streamlit as st
 from utils.chatbot import Chatbot
-chatbot = Chatbot()
+from context.engine.db import db_manager
 
-render_sidebar(chatbot)
-render_chat(chatbot)
+chatbot = Chatbot()
+db = db_manager()
+db.init_db()
+
+render_sidebar(chatbot, db)
+render_chat(chatbot, db)

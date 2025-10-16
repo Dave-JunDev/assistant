@@ -2,13 +2,21 @@ import streamlit as st
 from context.engine.db import db_manager
 from context.models.conversation import conversation
 from context.models.message import message
+from utils.chatbot import Chatbot
 
-def render_sidebar(chatbot):
+def render_sidebar(chatbot: Chatbot, db : db_manager):
     st.sidebar.title("Conversations")
     db = db_manager()
     session = db.get_session()
 
     conversations = session.query(conversation).order_by(conversation.created_at.desc()).all()
+
+    if not conversations:
+        new_conv = conversation(label="Conversation 1")
+        session.add(new_conv)
+        session.commit()
+        st.session_state.conversation_id = new_conv.id
+        conversations = [new_conv]
 
     options = {f"{conv.label}": conv.id for conv in conversations}
     selection = st.sidebar.selectbox("Select Conversation", options=list(options.keys()))
