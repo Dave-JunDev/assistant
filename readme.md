@@ -35,8 +35,9 @@ Install Docker: You'll need Docker installed on your machine. You can download a
 
 Build the Docker Image: Navigate to the root directory of your project (where the Dockerfile is located) and run the following command to build the Docker image:
 
+```bash
 docker build . -t assistant
-
+```
 This command builds an image named "assistant" using the instructions in the Dockerfile.
 
 Run the Docker Compose File: To run the assistant application with its dependencies, use Docker Compose. Make sure you're in the root directory of your project. Then run:
